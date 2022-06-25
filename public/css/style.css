@@ -1,0 +1,408 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.gjs-row {
+    display: table;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.gjs-cell {
+    width: 8%;
+    display: table-cell;
+    height: 75px;
+}
+
+.container.reveal {
+    float: none;
+    padding: 0 0 0 0;
+}
+
+.text-container.reveal {
+    text-align: center;
+    float: none;
+}
+
+.text-container {
+    float: none;
+}
+
+.gjs-scroll-container.reveal:hover {
+    transition: all 0.5s ease;
+    transform: scaleY(1.05) scaleX(1.05);
+}
+
+#izfu {
+    height: 80vh;
+}
+
+.gjs-scroll-container {
+    margin-top: 100px;
+    margin-right: 100px;
+    margin-bottom: 100px;
+    margin-left: 100px;
+}
+
+.gjs-scroll-container:nth-child(1) {
+    color: rgb(224, 255, 255);
+}
+
+.gjs-scroll-container:nth-child(2) {
+    color: rgb(66, 69, 90);
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(224, 255, 255);
+}
+
+.gjs-scroll-container:nth-child(3) {
+    color: rgb(224, 255, 255);
+}
+
+.gjs-scroll-container:nth-child(4) {
+    color: rgb(66, 69, 90);
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(224, 255, 255);
+}
+
+.gjs-scroll-container h1 {
+    font-size: 3rem;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.gjs-scroll-container h2 {
+    font-size: 40px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.gjs-scroll-container .text-container {
+    display: flex;
+}
+
+.gjs-scroll-container .text-container .text-box {
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(0, 194, 203);
+}
+
+.gjs-scroll-reveal {
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    transition-property: all;
+}
+
+.gjs-scroll-reveal.gjs-scroll-active {
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+.undefined-container {
+    margin-top: 100px;
+    margin-right: 100px;
+    margin-bottom: 100px;
+    margin-left: 100px;
+}
+
+.undefined-container:nth-child(1) {
+    color: rgb(224, 255, 255);
+}
+
+.undefined-container:nth-child(2) {
+    color: rgb(66, 69, 90);
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(224, 255, 255);
+}
+
+.undefined-container:nth-child(3) {
+    color: rgb(224, 255, 255);
+}
+
+.undefined-container:nth-child(4) {
+    color: rgb(66, 69, 90);
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(224, 255, 255);
+}
+
+.undefined-container h1 {
+    font-size: 3rem;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.undefined-container h2 {
+    font-size: 40px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.undefined-container .text-container {
+    display: flex;
+}
+
+.undefined-container .text-container .text-box {
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(0, 194, 203);
+}
+
+.gjs-scroll-reveal {
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    transition-property: all;
+}
+
+.gjs-scroll-reveal.gjs-scroll-active {
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+#imgu1 {
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    text-shadow: 4px 4px 3px rgba(0, 0, 0, 0.33);
+    font-size: 53px;
+    margin: 19vh 0 0 0;
+    width: 100%;
+}
+
+#i6gdk {
+    padding: 10px;
+    font-family: Helvetica, sans-serif;
+    font-size: 40px;
+}
+
+#iogde {
+    padding: 10px;
+}
+
+#i717k {
+    padding: 10px;
+    max-width: 900px;
+    font-family: Helvetica, sans-serif;
+    font-weight: 300;
+}
+
+#ikq3j {
+    height: 207px;
+}
+
+#iml5g {
+    text-align: left;
+    padding: 0 10% 0 12%;
+}
+
+#ibpi {
+    font-family: Helvetica, sans-serif;
+}
+
+.gjs-scroll-container.gjs-scroll-reveal {
+    width: 100%;
+    margin: 100px 100px 100px 0;
+}
+
+.gjs-scroll-active {
+    transition: all 2s ease;
+    transform: rotateZ(0);
+}
+
+#imbyv2 {
+    padding: 10px;
+}
+
+#idxpf8 {
+    padding: 10px;
+}
+
+#irl9ng {
+    padding: 10px;
+}
+
+#irt6sl {
+    padding: 10px;
+}
+
+#if76t {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    letter-spacing: -1px;
+}
+
+#idszr {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    letter-spacing: -1px;
+}
+
+#ila45 {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    letter-spacing: -1px;
+}
+
+#i490h {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    letter-spacing: -1px;
+}
+
+#iftg4t {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    letter-spacing: -1px;
+}
+
+#ijbexl {
+    font-family: "Courier New", Courier, monospace;
+    letter-spacing: -1px;
+}
+
+#ickv0j {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    letter-spacing: -1px;
+}
+
+#i3en4 {
+    color: black;
+    width: 80%;
+    margin: 0 0 0 10%;
+}
+
+#ibooe {
+    color: black;
+    width: 80%;
+    margin: 0 0 0 10%;
+    max-width: 400px;
+}
+
+#i4e6h {
+    height: 27px;
+}
+
+#ivlfq {
+    padding: 10px;
+}
+
+#i9jss {
+    background-color: #414141;
+    font-family: Helvetica, sans-serif;
+    color: #aca8a8;
+    position: fixed;
+    bottom: 0;
+}
+
+#ia2zt {
+    color: black;
+    width: 80%;
+    margin: 0 0 0 10%;
+}
+
+@media (max-width: 900px) {
+    .gjs-scroll-container h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .gjs-scroll-container .text-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .gjs-cell {
+        width: 100%;
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    #i717k {
+        width: 90%;
+    }
+
+    #ih8l {
+        width: 310px;
+    }
+}
