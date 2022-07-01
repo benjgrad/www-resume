@@ -1,13 +1,12 @@
 import tUIImageEditor from 'grapesjs-tui-image-editor'
 import basicBlocks from 'grapesjs-blocks-basic'
 import flexBox from 'grapesjs-blocks-flexbox'
-// import preset from 'grapesjs-preset-newsletter'
 import exportPlugin from 'grapesjs-plugin-export'
 import navbar from 'grapesjs-navbar'
 import countdown from 'grapesjs-component-countdown'
 import forms from 'grapesjs-plugin-forms'
 import tabs from 'grapesjs-tabs'
-import scroll from './plugins/grapesjs-plugin-scrollanimation';
+import scroll from 'grapesjs-plugin-scroll';
 
 
 export const config = {
