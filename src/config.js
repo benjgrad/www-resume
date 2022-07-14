@@ -6,7 +6,8 @@ import navbar from 'grapesjs-navbar'
 import countdown from 'grapesjs-component-countdown'
 import forms from 'grapesjs-plugin-forms'
 import tabs from 'grapesjs-tabs'
-import scroll from 'grapesjs-plugin-scroll';
+// import scroll from 'grapesjs-plugin-scroll'
+import charts from './plugins/charts'
 
 
 export const config = {
@@ -16,6 +17,7 @@ export const config = {
     fromElement: true,
     height: "100vh",
     plugins: [
+        charts,
         tUIImageEditor,
         basicBlocks,
         flexBox,
@@ -24,7 +26,7 @@ export const config = {
         countdown,
         forms,
         tabs,
-        scroll
+        //scroll,
     ],
     canvas: {
         styles: ["css/style.css"]
