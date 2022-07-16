@@ -17,7 +17,8 @@ export default function addBlocks(editor, opts) {
       <div class="gjs-block-label">${opts.chartBlockName}</div>`,
     category: 'Charts',
     content: `
-      <canvas data-gjs-type="${componentType}" width="400" height="400"></canvas>
-      `,
+    <div data-gjs-type="${componentType}" style="width:400px; height:400px; display:block;">
+      <canvas data-gjs-type="${componentType}_canvas" style="width:400px; height:400px" class="chartsjs"></canvas>
+    </div>`,
   });
 }

@@ -1,82 +1,136 @@
-// import InputColor from "grapesjs/src/domain_abstract/ui/InputColor";
+
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length === 1 ? "0" + hex : hex;
+}
+
+function rgbToHex({ r, g, b }) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function getRandomColor() {
+  return { r: Math.floor(Math.random() * 255), g: Math.floor(Math.random() * 255), b: Math.floor(Math.random() * 255) };
+}
 
 export const addTraits = (editor, opts) => {
-
-  // editor.TraitManager.addType('chart-dataset', {
-  //   templateInput: '',
-
-  //   /**
-  //    * Returns input element
-  //    * @return {HTMLElement}
-  //    * @private
-  //    */
-  //   getInputEl() {
-  //     if (!this.input) {
-  //       const model = this.model;
-  //       const value = this.getModelValue();
-  //       const inputColor = new InputColor({
-  //         model,
-  //         target: this.config.em,
-  //         contClass: this.ppfx + 'field-color',
-  //         ppfx: this.ppfx,
-  //       });
-  //       const input = inputColor.render();
-  //       input.setValue(value, { fromTarget: 1 });
-  //       this.input = input.el;
-  //     }
-
-  //     return this.input;
-  //   }
-  // });
-
   editor.TraitManager.addType('chart-dataset', {
     noLabel: true,
     events: {
       'change': 'onChange',
     },
     createInput(inputProps) {
-      const { trait } = inputProps;
-      console.log("createInput", inputProps);
-      // Here we can decide to use properties from the trait
-      const traitOpts = trait.get('options') || [];
-      const options = traitOpts.length ? traitOpts : [
-        { id: 'url', name: 'URL' },
-        { id: 'email', name: 'Email' },
-      ];
+      const { component } = inputProps;
 
       // Create a new element container add some content
       const el = document.createElement('div');
       el.innerHTML = `
-        <input class="charts__datasetnum" type="number" placeholder="# of data sets"/>
-        <input class="charts__datapointnum" type="number" placeholder="# of data points"/>
+        <div>
+          <input class="charts__datasetnum" type="number" step="1" min="1" max="10" placeholder="# of data sets"/>
+          <input class="charts__datapointnum" type="number" step="1" min="3" max="50" placeholder="# of data points"/>
+          <div class="charts__label_data"></div>
+          <div class="charts__data"></div>
+        </div>
       `;
       const dataSetNumInput = el.querySelector(".charts__datasetnum");
       const dataPointNumInput = el.querySelector(".charts__datapointnum");
 
-      dataSetNumInput.addEventListener('change', e => {
-        console.log("eventhandler - dataSetNum changed");
-      });
 
-      dataPointNumInput.addEventListener('change', e => {
-        console.log("eventhandler - dataPointNum changed");
-      });
+      const changeHandler = function (e) {
+        const dataDiv = el.querySelector('.charts__data');
+        const labelDiv = el.querySelector('.charts__label_data');
+        dataDiv.innerHTML = ""
 
-      // // Let's make our content alive
-      // const inputsUrl = el.querySelector('.href-next__url-inputs');
-      // const inputsEmail = el.querySelector('.href-next__email-inputs');
-      // const inputType = el.querySelector('.href-next__type');
-      // inputType.addEventListener('change', ev => {
-      //   switch (ev.target.value) {
-      //     case 'url':
-      //       inputsUrl.style.display = '';
-      //       inputsEmail.style.display = 'none';
-      //       break;
-      //     case 'email':
-      //       inputsUrl.style.display = 'none';
-      //       inputsEmail.style.display = '';
-      //       break;
-      //   }
-      // });
+        const data = component.getAttributes().data || '[{"data":[]}]';
+        const labelData = component.getAttributes().labels || '[""]';
+        const labels = JSON.parse(labelData)
+        const values = JSON.parse(data);
+        let i = 0;
+
+        if (values.length > 0) {
+          const dataPointNum = values[0].data?.length ?? 0;
+          for (let j = 0; j < dataPointNum; j++) {
+            let hiddenLabelInput = document.createElement("input");
+            hiddenLabelInput.className = "charts__label_" + j;
+            hiddenLabelInput.style = "display:none";
+            hiddenLabelInput.value = ""
+            let existingInput = el.querySelector(".charts__label_" + j);
+            if (!existingInput) {
+              labelDiv.appendChild(hiddenLabelInput);
+            }
+          }
+        }
+
+        values.forEach(dataSet => {
+          const div = document.createElement("div");
+          div.style = "margin:5px; outline:2px solid;display:block;overflow:auto;"
+          const dataSetLabelInput = document.createElement("input");
+          dataSetLabelInput.type = "text";
+          dataSetLabelInput.className = "charts__data_set_label_" + i;
+          dataSetLabelInput.placeholder = "Data Set Label";
+          dataSetLabelInput.value = dataSet.label ?? "";
+          div.appendChild(dataSetLabelInput);
+
+          const colorInput = document.createElement("input");
+          colorInput.type = "color";
+          colorInput.className = "charts__color_" + i;
+          colorInput.value = dataSet.color ? rgbToHex(dataSet.color) : getRandomColor();
+          div.appendChild(colorInput);
+
+          const alphaInput = document.createElement("input");
+          alphaInput.type = "range";
+          alphaInput.className = "charts__color_alpha_" + i;
+          alphaInput.min = "0"
+          alphaInput.max = "1"
+          alphaInput.step = "0.01"
+          alphaInput.value = dataSet?.color?.a ?? 0.3;
+          alphaInput.style = "height: 0.1px; outline: none; border-radius: 1px; appearance: auto; width: 98%;";
+
+          div.appendChild(alphaInput);
+
+          let j = 0;
+          dataSet.data.forEach(val => {
+            const label = document.createElement("input");
+            const input = document.createElement("input");
+
+            input.id = `chart-input-${i}-${j}`;
+            input.className = `chart-input-${i}-${j}`;
+            input.setAttribute("name", input.id);
+            label.setAttribute("for", input.id);
+            label.value = labels[j] ?? `Data Point ${j + 1}`;
+            const labelClass = ".charts__label_" + j;
+            label.placeholder = "Label";
+            label.addEventListener('change', e => {
+              labelDiv.querySelector(labelClass).value = e.target.value;
+            });
+
+            input.value = val;
+            input.style = "width:40%; float:left;"
+            label.style = "width:60%; float:left;"
+            input.type = "number";
+            div.append(label);
+            div.appendChild(input);
+            j++;
+          });
+          dataDiv.appendChild(div);
+          i++;
+        });
+
+
+
+      }
+      component.view.render();
+      changeHandler();
+      dataSetNumInput.addEventListener('change', changeHandler);
+
+      dataPointNumInput.addEventListener('change', changeHandler);
 
       return el;
     },
@@ -85,187 +139,88 @@ export const addTraits = (editor, opts) => {
     onEvent(eventProps) {
       const { elInput, component } = eventProps;
       // `elInput` is the result HTMLElement you get from `createInput`
-      console.log("onEvent", component);
       const dataSetNumInput = elInput.querySelector('.charts__datasetnum');
       const dataPointNumInput = elInput.querySelector('.charts__datapointnum');
       const dataSetNum = dataSetNumInput.value;
       const dataPointNum = dataPointNumInput.value;
 
-      const dataBefore = component.getAttributes().data || '[[0]]';
+      const dataBefore = component.getAttributes().data || '[{"data":[]}]';
       const valuesBefore = JSON.parse(dataBefore);
+      let labels = []
+
+      for (let j = 0; j < Math.max(dataPointNum, 3); j++) {
+        let hiddenLabelInput = elInput.querySelector(".charts__label_" + j);
+        if (hiddenLabelInput) {
+          labels[j] = hiddenLabelInput.value;
+        }
+        else {
+          labels[j] = "";
+        }
+      }
 
       let values = [];
       const numDataSetsBefore = valuesBefore.length;
       for (let i = 0; i < dataSetNum; i++) {
-        let dataSetBefore = [];
+        let dataSetBefore = { data: [] };
         if (i < numDataSetsBefore) {
           dataSetBefore = valuesBefore[i];
         }
-        let dataSet = [];
-        const numDataPointsBefore = dataSetBefore.length;
+        let dataSet = { data: [] };
+
+
+        let dataSetLabelInput = elInput.querySelector(".charts__data_set_label_" + i);
+        dataSet.label = dataSetLabelInput?.value;
+        let dataSetColorInput = elInput.querySelector(".charts__color_" + i);
+        dataSet.color = hexToRgb(dataSetColorInput?.value) ?? getRandomColor();
+        let dataSetAlphaInput = elInput.querySelector(".charts__color_alpha_" + i);
+        dataSet.color.a = dataSetAlphaInput?.value ?? 0.3;
+
+        const numDataPointsBefore = dataSetBefore.data.length ?? 0;
         for (let j = 0; j < dataPointNum; j++) {
-          if (j < numDataPointsBefore) {
-            dataSet[j] = dataSetBefore[j];
+
+          let input = elInput.querySelector(`.chart-input-${i}-${j}`);
+          if (input) {
+            dataSet.data[j] = Math.floor(input.value);
           }
           else {
-            dataSet[j] = Math.random() * 100;
+            if (j < numDataPointsBefore) {
+              dataSet.data[j] = Math.floor(dataSetBefore.data[j]);
+            }
+            else {
+              dataSet.data[j] = Math.floor(Math.random() * 100);
+            }
           }
         }
         values[i] = dataSet;
       }
-      const data = JSON.stringify(values);
 
-      component.addAttributes({ data });
-      component.view.render()
+      const data = JSON.stringify(values);
+      const labelData = JSON.stringify(labels);
+      component.addAttributes({ labels: labelData, data });
+      const id = component.getId();
+
+      component.set('data', { id, labels, values })
+
+      dataSetNumInput.dispatchEvent(new CustomEvent('change'));
 
     },
 
     onUpdate(eventProps) {
       const { elInput, component } = eventProps;
-      console.log("onUpdate", component);
       const dataSetNumInput = elInput.querySelector('.charts__datasetnum');
       const dataPointNumInput = elInput.querySelector('.charts__datapointnum');
-      const data = component.getAttributes().data || '[[0]]';
+      const data = component.getAttributes().data || '[{"data":[]}]';
       const values = JSON.parse(data);
 
-      dataSetNumInput.value = values.length;
-      dataPointNumInput.value = values[0].length;
+      dataSetNumInput.value = Math.max(values.length, 1);
+      if (values.length > 0) {
+        dataPointNumInput.value = Math.max(values[0].data.length, 3);
+      }
+      else {
+        dataPointNumInput.value = 3;
+      }
 
       dataSetNumInput.dispatchEvent(new CustomEvent('change'));
     },
   });
-
-
-  // editor.TraitManager.addType('chart-dataset', {
-  //   noLabel: true,
-
-  //   events: {
-  //     'change': 'onChange'
-  //   },
-
-  //   onChange() {
-  //     console.log('changed');
-  //     this.model.set('value', this.getInputEl().value);
-  //   },
-  //   // inputHtml: '<input class="mycolorPicker"/>',
-  //   // getInputEl() {
-  //   //   console.log("getInputEl")
-  //   //   if (!this.inputEl) {
-  //   //     var input = document.createElement('input');
-  //   //     input.innerHTML = this.inputHtml
-  //   //     var inputEl = input;
-  //   //     var pickerEl = inputEl.querySelector(".mycolorPicker");
-  //   //     pickerEl.id = "ppcp" + this.cid;
-  //   //     if (!this.model.colorPickerEl) {// add the jQuery spectrum color picker to our trait editor
-  //   //       this.model.colorPickerEl = editor.TraitManager.getType('color').prototype.getInputEl.apply(this, arguments);
-  //   //     }
-  //   //     pickerEl.appendChild(this.model.colorPickerEl)
-  //   //     this.inputEl = inputEl;
-  //   //     ///... code to handle value changes and update other fields ...
-
-  //   //     return this.inputEl;
-  //   //   }
-  //   // },
-  //   // Return a simple HTML string or an HTML element
-  //   createInput(inputProps) {
-  //     const { trait } = inputProps;
-  //     console.log("createInput", inputProps);
-  //     // Here we can decide to use properties from the trait
-  //     const traitOpts = trait.get('options') || [];
-  //     const options = traitOpts.length ? traitOpts : [
-  //       { id: 'url', name: 'URL' },
-  //       { id: 'email', name: 'Email' },
-  //     ];
-
-  //     // Create a new element container add some content
-  //     const el = document.createElement('div');
-  //     el.innerHTML = `
-  //     <select class="href-next__type">
-  //       ${options.map(opt =>
-  //       `<option value="${opt.id}">${opt.name}</option>`)
-  //         .join('')}
-  //     </select>
-  //     <div class="href-next__url-inputs">
-  //       <input class="href-next__url" placeholder="Insert URL"/>
-  //     </div>
-  //     <div class="href-next__email-inputs">
-  //     <input class="href-next__email" placeholder="Insert email"/>
-  //     <input class="href-next__email-subject" placeholder="Insert subject"/>
-  //     </div>
-  //   `;
-
-  //     // Let's make our content alive
-  //     const inputsUrl = el.querySelector('.href-next__url-inputs');
-  //     const inputsEmail = el.querySelector('.href-next__email-inputs');
-  //     const inputType = el.querySelector('.href-next__type');
-  //     inputType.addEventListener('change', ev => {
-  //       switch (ev.target.value) {
-  //         case 'url':
-  //           inputsUrl.style.display = '';
-  //           inputsEmail.style.display = 'none';
-  //           break;
-  //         case 'email':
-  //           inputsUrl.style.display = 'none';
-  //           inputsEmail.style.display = '';
-  //           break;
-  //       }
-  //     });
-
-  //     return el;
-  //   },
-
-  //   // Update the component based element changes
-  //   onEvent(eventProps) {
-  //     const { elInput, component } = eventProps;
-  //     // `elInput` is the result HTMLElement you get from `createInput`
-  //     console.log("onEvent", component);
-  //     const inputType = elInput.querySelector('.href-next__type');
-  //     let href = '';
-
-  //     switch (inputType.value) {
-  //       case 'url':
-  //         const valUrl = elInput.querySelector('.href-next__url').value;
-  //         href = valUrl;
-  //         break;
-  //       case 'email':
-  //         const valEmail = elInput.querySelector('.href-next__email').value;
-  //         const valSubj = elInput.querySelector('.href-next__email-subject').value;
-  //         href = `mailto:${valEmail}${valSubj ? `?subject=${valSubj}` : ''}`;
-  //         break;
-  //     }
-
-  //     component.addAttributes({ href });
-  //     component.view.render()
-
-  //   },
-
-  //   onUpdate(eventProps) {
-  //     const { elInput, component } = eventProps;
-  //     console.log("onEvent", component);
-  //     const href = component.getAttributes().href || '';
-  //     const inputType = elInput.querySelector('.href-next__type');
-  //     let type = 'url';
-
-  //     if (href.indexOf('mailto:') === 0) {
-  //       const inputEmail = elInput.querySelector('.href-next__email');
-  //       const inputSubject = elInput.querySelector('.href-next__email-subject');
-  //       const mailTo = href.replace('mailto:', '').split('?');
-  //       const email = mailTo[0];
-  //       const params = (mailTo[1] || '').split('&').reduce((acc, item) => {
-  //         const items = item.split('=');
-  //         acc[items[0]] = items[1];
-  //         return acc;
-  //       }, {});
-  //       type = 'email';
-
-  //       inputEmail.value = email || '';
-  //       inputSubject.value = params.subject || '';
-  //     } else {
-  //       elInput.querySelector('.href-next__url').value = href;
-  //     }
-
-  //     inputType.value = type;
-  //     inputType.dispatchEvent(new CustomEvent('change'));
-  //   },
-  // });
 }
