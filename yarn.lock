@@ -5066,10 +5066,10 @@ grapesjs-plugin-forms@^2.0.1:
   resolved "https://registry.npmjs.org/grapesjs-plugin-forms/-/grapesjs-plugin-forms-2.0.1.tgz"
   integrity sha512-TNzy6bSBPocPvYjZr4Jtc3eRKZsbRpin8w0vGlfhgoaCd7q2uMUYyq2ziAKYCjQalByz3Kia9SMWmwh9NsLRpA==
 
-grapesjs-plugin-scroll@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/grapesjs-plugin-scroll/-/grapesjs-plugin-scroll-1.0.3.tgz#cdbc100bcb84222c167aefd3297c1f6f60a96cc5"
-  integrity sha512-nnXV1fe5ob4gu9UUH6tLWcKzxHAwu6bYvK6I++oaE2Zv0eONPOedcB0HSXKek8B21DwOme9awXhBYWfFsyB6pQ==
+grapesjs-plugin-scroll@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/grapesjs-plugin-scroll/-/grapesjs-plugin-scroll-1.0.6.tgz#5b1296839db1aeba1a2cf464a720e993db440669"
+  integrity sha512-DlmAYpdaQdShU0DTjLeJyR3vPh+9PumRUYFrrWc5CPIwDR7+50Rm6OTRz0g+0k3mfo3ZB6723/xsb7HMjRq1Qw==
   dependencies:
     grapesjs "^0.19.4"
 

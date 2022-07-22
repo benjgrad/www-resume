@@ -17,14 +17,6 @@ code {
   height: 100vh;
 }
 
-.gjs-row {
-  display: table;
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  width: 100vh;
-}
 
 .gjs-editor {
   font-family: Helvetica, sans-serif;

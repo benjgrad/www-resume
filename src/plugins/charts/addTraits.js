@@ -60,7 +60,7 @@ export const addTraits = (editor, opts) => {
             let hiddenLabelInput = document.createElement("input");
             hiddenLabelInput.className = "charts__label_" + j;
             hiddenLabelInput.style = "display:none";
-            hiddenLabelInput.value = ""
+            hiddenLabelInput.value = labels[j] ?? ""
             let existingInput = el.querySelector(".charts__label_" + j);
             if (!existingInput) {
               labelDiv.appendChild(hiddenLabelInput);
