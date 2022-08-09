@@ -25,7 +25,7 @@ export default grapesjs.plugins.add('gjs-scroll', (editor, opts = {}) => {
     gjsScrollComponentType,
     gjsScrollInnerComponentType: innerComponentType,
     gjsScrollBlockName: opts.gjsScrollBlockName ?? "Scroll",
-    gjsScrollContent: `<div data-gjs-type="${gjsScrollComponentType}" class="${gjsScrollPrefix}-container ${gjsScrollPrefix}-reveal">
+    gjsScrollContent: `<div data-gjs-type="${gjsScrollComponentType}" class="${gjsScrollPrefix}-container ${gjsScrollPrefix}-inactive">
         ${opts.gjsScrollContent ?? defaultContent(gjsScrollPrefix, innerComponentType)}
     </div>`,
   };

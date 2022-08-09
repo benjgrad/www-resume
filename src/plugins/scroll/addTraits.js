@@ -3,23 +3,55 @@
 
 
 export function addTraits(editor, opts) {
-    editor.TraitManager.addType('gjs-scroll-threshold', {
-        noLabel: true,
-        events: {
-            'change': 'onChange',
+    editor.TraitManager.addType('gjs-scroll-animation-type', {
+        createInput() {
+            const el = document.createElement('input');
+            el.className = "gjs-scroll-animation-type";
+            el.type = "text";
+            el.placeholder = "Default";
+            return el;
         },
+        onEvent(eventProps) {
+            const { elInput, component } = eventProps;
+            // `elInput` is the result HTMLElement you get from `createInput`
+            const scrollType = elInput.value;
+
+            const attributes = component.getAttributes();
+            const classes = attributes.class.split(' ');
+            console.log(scrollType)
+            for (let i = 0; i < classes.length; i++) {
+                const cssClass = classes[i];
+                if (cssClass.includes(`${opts.gjsScrollPrefix}-inactive`)) {
+                    classes[i] = `${scrollType}_${opts.gjsScrollPrefix}-inactive`;
+                }
+            };
+            console.log(classes);
+            component.addAttributes({ scrollType: scrollType, class: classes.join(' ') });
+            component.set('gjs-scroll-type', scrollType);
+
+            component.view.render();
+
+        },
+
+        onUpdate(eventProps) {
+            const { elInput, component } = eventProps;
+
+            const scrollType = component.getAttributes().scrollType;
+            console.log(component);
+            let classes = component.className?.split('');
+            console.log(classes);
+
+            elInput.value = scrollType ?? "";
+        },
+    });
+    editor.TraitManager.addType('gjs-scroll-threshold', {
         createInput() {
 
             // Create a new element container add some content
-            const el = document.createElement('div');
-            el.className = "gjs-trt-trait gjs-trt-trait--number";
-            el.innerHTML = `
-            <div class="gjs-label-wrp" data-label=""><div class="gjs-label" title="Threshold">Threshold</div></div>
-            <div class="gjs-field-wrp gjs-field-wrp--number" data-input="">
-                <div class="gjs-field gjs-field-number" data-input=""><div class="gjs-field-int">
-            <span class="gjs-input-holder"><input class="gjs-scroll-thresh" type="number" placeholder=""></span>
-            </div>
-            `;
+            const el = document.createElement('input');
+            el.className = "gjs-scroll-thresh";
+            el.type = "number";
+            el.placeholder = "150";
 
             return el;
         },
@@ -29,8 +61,7 @@ export function addTraits(editor, opts) {
             const { elInput, component } = eventProps;
             // `elInput` is the result HTMLElement you get from `createInput`
 
-            const scrollThresholdInput = elInput.querySelector(".gjs-scroll-thresh");
-            const threshold = scrollThresholdInput.value;
+            const threshold = elInput.value;
 
             component.addAttributes({ threshold });
             component.set('threshold', threshold);
@@ -41,11 +72,9 @@ export function addTraits(editor, opts) {
         onUpdate(eventProps) {
             const { elInput, component } = eventProps;
 
-            const scrollThresholdInput = elInput.querySelector(".gjs-scroll-thresh");
-
             const threshold = component.getAttributes().threshold;
 
-            scrollThresholdInput.value = threshold;
+            elInput.value = threshold;
         },
     });
 
