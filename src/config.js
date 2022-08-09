@@ -6,8 +6,7 @@ import navbar from 'grapesjs-navbar'
 import countdown from 'grapesjs-component-countdown'
 import forms from 'grapesjs-plugin-forms'
 import tabs from 'grapesjs-tabs'
-import scroll from 'grapesjs-plugin-scroll'
-import charts from './plugins/charts'
+import scroll from 'grapesjs-plugin-scroll';
 
 
 export const config = {
