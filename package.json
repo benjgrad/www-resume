@@ -15,7 +15,7 @@
     "grapesjs-plugin-ckeditor": "^0.0.10",
     "grapesjs-plugin-export": "^1.0.7",
     "grapesjs-plugin-forms": "^2.0.1",
-    "grapesjs-plugin-scroll": "^1.0.6",
+    "grapesjs-plugin-scroll": "^1.0.7",
     "grapesjs-preset-newsletter": "^0.2.21",
     "grapesjs-tabs": "^1.0.6",
     "grapesjs-tui-image-editor": "^0.1.3",

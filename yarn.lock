@@ -3202,9 +3202,9 @@ codemirror-formatting@^1.0.0:
   integrity sha512-br9yM6eJI3pJHekEnoyHaBEb1B7XxxDjju+vRyBe8QGLp5saTIXXkZ+eFCTqXSAtI8QEZDFVEX2/SOjH2sVWRQ==
 
 codemirror@^5.63.0:
-  version "5.65.6"
-  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.65.6.tgz#fc313797331cbeb3bcab0652d1ec9d0f40c23ab5"
-  integrity sha512-zNihMSMoDxK9Gqv9oEyDT8oM51rcRrQ+IEo2zyS48gJByBq5Fj8XuNEguMra+MuIOuh6lkpnLUJeL70DoTt6yw==
+  version "5.65.7"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.65.7.tgz#29af41ce5f4c2b8f1c1e16f4e645ff392823716a"
+  integrity sha512-zb67cXzgugIQmb6tfD4G11ILjYoMfTjwcjn+cWsa4GewlI2adhR/h3kolkoCQTm1msD/1BuqVTKuO09ELsS++A==
 
 collect-v8-coverage@^1.0.0:
   version "1.0.1"
@@ -5067,9 +5067,9 @@ grapesjs-plugin-forms@^2.0.1:
   integrity sha512-TNzy6bSBPocPvYjZr4Jtc3eRKZsbRpin8w0vGlfhgoaCd7q2uMUYyq2ziAKYCjQalByz3Kia9SMWmwh9NsLRpA==
 
 grapesjs-plugin-scroll@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/grapesjs-plugin-scroll/-/grapesjs-plugin-scroll-1.0.6.tgz#5b1296839db1aeba1a2cf464a720e993db440669"
-  integrity sha512-DlmAYpdaQdShU0DTjLeJyR3vPh+9PumRUYFrrWc5CPIwDR7+50Rm6OTRz0g+0k3mfo3ZB6723/xsb7HMjRq1Qw==
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/grapesjs-plugin-scroll/-/grapesjs-plugin-scroll-1.0.7.tgz#e0de8681ee62d0c649eaf6c837a3b15e5f51188e"
+  integrity sha512-yRdnDEwOb1tCOh4jv5GyqJcuJEoK7VHUpaTON3uPqW2l7u7BuK7xKbrAuCOa4SZFwB6JZyiJMUtOVXLTGXHx4w==
   dependencies:
     grapesjs "^0.19.4"
 

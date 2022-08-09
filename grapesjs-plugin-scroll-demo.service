@@ -1,0 +1,16 @@
+[Unit]
+Description=My Node.js Web Server
+After=network.target
+
+[Service]
+ExecStart=/home/bengrady4/.nvm/versions/node/v14.17.6/bin/yarn start
+
+WorkingDirectory=/home/bengrady4/Documents/Projects/www-resume
+StandardOutput=syslog
+StandardError=syslog
+User=bengrady4
+Group=bengrady4
+SyslogIdentifier=nodejs_www
+
+[Install]
+WantedBy=default.target
