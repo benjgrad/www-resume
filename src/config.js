@@ -6,8 +6,8 @@ import navbar from 'grapesjs-navbar'
 import countdown from 'grapesjs-component-countdown'
 import forms from 'grapesjs-plugin-forms'
 import tabs from 'grapesjs-tabs'
-import scroll from './plugins/scroll'//'grapesjs-plugin-scroll'
-import charts from './plugins/charts'
+import scroll from 'grapesjs-plugin-scroll'
+import charts from 'grapesjs-plugin-chartjs'
 
 
 export const config = {
@@ -18,6 +18,7 @@ export const config = {
     height: "100vh",
     plugins: [
         charts,
+        scroll,
         tUIImageEditor,
         basicBlocks,
         flexBox,
@@ -26,7 +27,6 @@ export const config = {
         countdown,
         forms,
         tabs,
-        scroll,
     ],
     canvas: {
         styles: ["css/style.css"]
@@ -47,5 +47,11 @@ export const config = {
                 'submenu.activeIcon.path': './icons/icon-c.svg',
             },
         }
-    }
+    },
+    storageManager: {
+        type: 'local',
+        options: {
+            local: { key: `gjsProject-${window.location.pathname}` }
+        }
+    },
 };
