@@ -19,7 +19,7 @@ The resume is build using Grapesjs, as well as the following plugins:
 ## Future Development
 - ~~Plugin for configuring scroll animations~~
 - Plugin for creating charts.js elements - WIP
-- Server-side storage (to avoid storage limit)
-- Basic user/password authentication for saving data
+- [~~Server-side storage (to avoid storage limit)~~](https://github.com/benjgrad/go-server)
+- ~~Basic user/password authentication for saving data~~
 - Plugin to show elements based on user input (for dynamic forms)
 - Server application for publishing and collecting data
